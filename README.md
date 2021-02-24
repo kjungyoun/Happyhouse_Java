@@ -23,25 +23,24 @@
 </span>
 
 ## 📌 기본 기능
-### 📎 전체 프로그램 동작
-<img width="1312" alt="스크린샷 2021-02-24 오후 8 53 44" src="https://user-images.githubusercontent.com/48318620/108997106-920dda80-76e2-11eb-8a1a-ca3959c326a0.png">
 
-### 📎 집 type 별로 검색
-![캡처1](https://user-images.githubusercontent.com/46915105/108997784-5e7f8000-76e3-11eb-93c7-bef2535a50eb.PNG)
+### 🎥 전체 프로그램 동작
 
-### 📎 집 Type과 아파트 이름으로 검색
-![캡처3](https://user-images.githubusercontent.com/46915105/108998236-f54c3c80-76e3-11eb-9d2a-a6fd586e023c.PNG)
-
-### 📎 아파트 목록에서 클릭하면 거래 정보에 해당 아파트 정보 표시
-![캡처4](https://user-images.githubusercontent.com/46915105/108998348-23318100-76e4-11eb-9a30-f55ddaae489c.PNG)
+![해피하우스_검색_원본 (1)](https://user-images.githubusercontent.com/48318620/109005149-f9308c80-76ec-11eb-9790-1856fd53da02.gif)
 
 
-
+~~~
+1. 집 Type 별로 검색 (체크 박스 )할 수 있는 기능
+2. 집 Type과 아파트 이름을 검색바로 검색하는 기능
+3. 거래 내역 리스트에서 특정 아파트를 선택하면 좌층 상단에 해당 아파트 상세 정보 표시
+~~~
 
 구현 기능: XML Parsing/주택 거래 XML
 
 
-## ✏️ 추가 & 심화 기능
+## 💯 추가 & 심화 기능
+### 🎥 추가 & 심화 기능 동작
+![해피하우스_클릭_용량줄임](https://user-images.githubusercontent.com/39117025/109004949-c1c1e000-76ec-11eb-900f-77d71bcd9d55.gif)
 
 ### 📃 추가 기능
 
@@ -71,11 +70,3 @@
 
 - 검색바에 특정 '동'을 검색하여 Enter를 입력해도 해당 '동'의 환경 정보와 상권 정보 리스트가 표시
     - 상권 정보 또는 환경 정보는 존재하지 않을 시 표시되지 않음 
-
-
-
-
-
-
-
-<img src="/readmeImage/해피하우스_검색_원본.gif" title="px(픽셀) 크기 설정" alt="gif"></img><br/>
