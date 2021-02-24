@@ -367,9 +367,9 @@ public class HouseInfoView {
 
 			for (Environment env : envs) {
 				data[i][0] = env.getName();
-				data[i][1] = "" + env.getBizcode();
-				data[i][2] = env.getAddress();
-				data[i][3] = "" + env.getDongcode();
+				data[i][1] = "" + env.getAddress();
+				data[i][2] = env.getYorn();
+				data[i][3] = "" + env.getDesc();
 				data[i++][4] = env.getDong();
 
 			}
@@ -409,9 +409,9 @@ public class HouseInfoView {
 
 			for (Environment env : envs) {
 				data[i][0] = env.getName();
-				data[i][1] = "" + env.getBizcode();
-				data[i][2] = env.getAddress();
-				data[i][3] = "" + env.getDongcode();
+				data[i][1] = "" + env.getAddress();
+				data[i][2] = env.getYorn();
+				data[i][3] = "" + env.getDesc();
 				data[i++][4] = env.getDong();
 
 			}
