@@ -26,10 +26,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
+import com.ssafy.happyhouse.model.dao.CommercialImpl;
+import com.ssafy.happyhouse.model.dto.Commercial;
 import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
+import com.ssafy.happyhouse.model.service.CommercialService;
+import com.ssafy.happyhouse.model.service.CommercialServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvirionmentServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvironmentService;
 import com.ssafy.happyhouse.model.service.HouseService;
@@ -42,6 +45,8 @@ public class HouseInfoView {
 	private HouseService houseService;
 	private EnvironmentService envService;
 	private ImageService imageService;
+	private CommercialService shopService;
+
 	/** main 화면 */
 	private JFrame frame;
 
@@ -94,12 +99,6 @@ public class HouseInfoView {
 	/** 화면에 표시하고 있는 주택 */
 	private HouseDeal curHouse;
 
-	/*
-	 * 주변 환경 정보를 출력하기 위한 셋팅
-	 */
-	private Environment env;
-	private List<Environment> envs;
-	private EnvironmentImpl envImp = new EnvironmentImpl();
 
 	private void showHouseInfo(int code) {
 
@@ -157,6 +156,7 @@ public class HouseInfoView {
 		/* Service들 생성 */
 		houseService = new HouseServiceImpl();
 		envService = new EnvirionmentServiceImpl();
+		shopService = new CommercialServiceImpl();
 		/* 메인 화면 설정 */
 		frame = new JFrame("HappyHouse -- 아파트 거래 정보");
 		frame.addWindowListener(new WindowAdapter() {
@@ -287,6 +287,7 @@ public class HouseInfoView {
 				String dong = ((String) houseModel.getValueAt(row, 1)).trim();
 				showHouseInfo(code);
 				showEnv(dong);
+				showShop(dong);
 			}
 		});
 
@@ -314,6 +315,8 @@ public class HouseInfoView {
 		// 참조코드 종료
 
 		showHouses();
+		showEnv();
+		showShop();
 	}
 
 	/** 검색 조건에 맞는 주택 정보 검색 */
@@ -373,6 +376,7 @@ public class HouseInfoView {
 			showImg();
 		}
 	
+		
 	}
 
 	/**
@@ -418,6 +422,67 @@ public class HouseInfoView {
          }
 		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		imgL.setIcon(new ImageIcon(img));
+	/*
+	 * 맨처음 실행 시 전체 환경정보를 출력
+	 */
+	public void showEnv() {
+		List<Environment> envs = envService.search();
+		
+		if (envs != null) {
+			int i = 0;
+			String[][] data = new String[envs.size()][5];
+
+			for (Environment env : envs) {
+				data[i][0] = env.getName();
+				data[i][1] = "" + env.getBizcode();
+				data[i][2] = env.getAddress();
+				data[i][3] = "" + env.getDongcode();
+				data[i++][4] = env.getDong();
+
+			}
+
+			envModel.setDataVector(data, envTitle);
+		} else {
+			System.out.println("envs 가 널입니다.");
+		}
+	}
+	
+	public void showShop() {
+		List<Commercial> shops = shopService.search();
+		if(shops != null) {
+			int i=0;
+			String data[][] = new String[shops.size()][5];
+			for(Commercial s : shops) {
+				data[i][0] = s.getNo();
+				data[i][1] = s.getShopname();
+				data[i][2] = s.getCodename1();
+				data[i][3] = s.getCodename2();
+				data[i++][4] = s.getAddress();
+			}
+			
+			shopModel.setDataVector(data, shopTitle);
+		} else {
+			System.out.println("shops가 널입니다.");
+		}
+	}
+	
+	public void showShop(String dong) {
+		List<Commercial> shops = shopService.search(dong);
+		if(shops != null) {
+			int i=0;
+			String data[][] = new String[shops.size()][5];
+			for(Commercial s : shops) {
+				data[i][0] = s.getNo();
+				data[i][1] = s.getShopname();
+				data[i][2] = s.getCodename1();
+				data[i][3] = s.getCodename2();
+				data[i++][4] = s.getAddress();
+			}
+			
+			shopModel.setDataVector(data, shopTitle);
+		} else {
+			System.out.println("shops가 널입니다.");
+		}
 	}
 //	public static void main(String[] args) {
 //		new HouseInfoView();
