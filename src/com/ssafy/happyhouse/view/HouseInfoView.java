@@ -62,6 +62,25 @@ public class HouseInfoView{
 	private JScrollPane		  	housePan;
 	private String[]		  	title = { "번호", "동", "아파트이름", "거래금액", "거래종류" };
 	
+	
+	/**
+	 * 환경정보 table
+	 */
+	private DefaultTableModel envModel;
+	private JTable envTable;
+	private JScrollPane envPane;
+	private String[] envTitle={"번호", "이름", "주소", "동"};
+	
+	
+	/**
+	 * 상권정보 table
+	 */
+	private DefaultTableModel shopModel;
+	private JTable shopTable;
+	private JScrollPane shopPane;
+	private String[] shopTitle= {"번호", "가게이름", "분류1", "분류2", "주소"};
+	
+	
 	/**검색  조건*/
 	private String	key;
 	
@@ -100,17 +119,17 @@ public class HouseInfoView{
 		houseInfoL[8].setText(curHouse.getDong());
 		houseInfoL[9].setText(curHouse.getJibun());
 		
-		//System.out.println("###############" + curHouse.getImg());
+		System.out.println("###############" + curHouse.getImg());
 		
-		ImageIcon icon = null;
-		if( curHouse.getImg() != null && curHouse.getImg().trim().length() != 0) {
-			icon = new ImageIcon("img/" + curHouse.getImg());
-			System.out.println("#####" + icon.toString() + "####");
-		}else {
-			icon = new ImageIcon("img/다세대주택.jpg");
-		}
-
-		imgL.setIcon(icon);
+//		ImageIcon icon = null;
+//		if( curHouse.getImg() != null && curHouse.getImg().trim().length() != 0) {
+//			icon = new ImageIcon("img/" + curHouse.getImg());
+//			System.out.println("#####" + icon.toString() + "####");
+//		}else {
+//			icon = new ImageIcon("img/다세대주택.jpg");
+//		}
+//
+//		imgL.setIcon(icon);
 		  
 		  
 
@@ -151,6 +170,8 @@ public class HouseInfoView{
 	/**메인 화면인 주택 목록을 위한 화면 셋팅하는 메서드  */
 	public void setMain(){
 		
+		
+		
 		/*왼쪽 화면을 위한 설정 */
 		JPanel left = new JPanel(new BorderLayout());
 		JPanel leftCenter = new JPanel(new GridLayout(1, 2));
@@ -175,6 +196,34 @@ public class HouseInfoView{
 		left.add(leftCenter,"Center");
 		
 		
+		
+		/*환경정보 담는 패널*/
+		JPanel bottomRight=new JPanel(new BorderLayout());
+		JPanel bottomRightCenter=new JPanel(new GridLayout(2,1));
+		
+		
+		envModel=new DefaultTableModel(envTitle, 20);
+		envTable=new JTable(envModel);
+		envPane=new JScrollPane(envTable);
+		envTable.setColumnSelectionAllowed(true);
+		bottomRightCenter.add(new JLabel("환경 정보", JLabel.CENTER), "North");
+		bottomRightCenter.add(envPane, "Center");
+		
+		bottomRight.add(bottomRightCenter, "Center");
+		
+		/*상권정보 담는 패널*/
+		JPanel bottomLeft=new JPanel(new BorderLayout());
+		JPanel bottomLeftCenter=new JPanel(new GridLayout(2,1));
+		
+		shopModel=new DefaultTableModel(shopTitle, 20);
+		shopTable=new JTable(shopModel);
+		shopPane=new JScrollPane(shopTable);
+		shopTable.setColumnSelectionAllowed(true);
+		bottomLeftCenter.add(new JLabel("상권 정보", JLabel.CENTER), "North");
+		bottomLeftCenter.add(shopPane, "Center");
+		
+		bottomLeft.add(bottomLeftCenter, "Center");
+		
 		/*오른쪽 화면을 위한 설정 */
 		JPanel right = new JPanel(new BorderLayout());
 		JPanel rightTop = new JPanel(new GridLayout(4, 2));
@@ -185,6 +234,7 @@ public class HouseInfoView{
 			chooseC[i] = new JCheckBox(chooseMeg[i], true);
 			rightTop1.add(chooseC[i]);
 		}
+		
 		
 		
 		JPanel rightTop2 = new JPanel(new GridLayout(1, 3));
@@ -213,10 +263,14 @@ public class HouseInfoView{
 		right.add(rightTop,"North");
 		right.add(rightCenter,"Center");
 		
-		JPanel mainP = new JPanel(new GridLayout(1, 2));
+		JPanel mainP = new JPanel(new GridLayout(2, 2));
 		
 		mainP.add(left);
 		mainP.add(right);
+		
+		//환경정보 패널을 main패널에 넣음
+		mainP.add(bottomRight);
+		mainP.add(bottomLeft);
 		
 		mainP.setBorder(BorderFactory.createEmptyBorder(20 , 10 , 10 , 10));
 		frame.add(mainP,"Center");
@@ -237,6 +291,10 @@ public class HouseInfoView{
 		// complete code #01
 		// 아래의 코드를 참조하여 아래 라인을 uncomment 하고 searchBt.addActionList() 를 Lambda 표현식으로 바꾸세요.
 		searchBt.addActionListener((e)->{searchHouses();} );
+		
+		//text창에서 enter눌렀을 때 검색
+		wordTf.addActionListener((e)->{searchHouses();});
+		
 		// 참조코드 시작 - 위 코드를 완성 후 삭제 또는 comment 처리하세요.
 //		ActionListener buttonHandler = new ActionListener() {
 //			@Override
