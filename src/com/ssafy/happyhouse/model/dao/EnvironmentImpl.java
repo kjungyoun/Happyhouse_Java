@@ -14,9 +14,10 @@ public class EnvironmentImpl {
 	
 	public EnvironmentImpl() {
 		envInfo = new LinkedList<Environment>();
-		load1();
-		load2();
-		load3();
+//		load1();
+//		load2();
+//		load3();
+		load4();
 	}
 
 	private void load1() {
@@ -25,7 +26,6 @@ public class EnvironmentImpl {
 			try (BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(f), "UTF-8"))) {
 				 String line=null;
-//	             List<Environment> env = new LinkedList<Environment>();
 	             reader.readLine();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
@@ -45,9 +45,9 @@ public class EnvironmentImpl {
 		File f = new File("res"+File.separator+"서울시 강동구 환경 지도점검 내역 현황.csv");
 		if(f.exists()) {
 			try (BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(f), "MS949"))) {
+					new InputStreamReader(new FileInputStream(f), "UTF-8"))) {
 				 String line=null;
-//	             List<Environment> env = new LinkedList<Environment>();
+				 reader.readLine();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 5) {
@@ -65,9 +65,9 @@ public class EnvironmentImpl {
 		File f = new File("res"+File.separator+"서울시 강서구 환경 지도점검 내역 현황.csv");
 		if(f.exists()) {
 			try (BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new FileInputStream(f), "MS949"))) {
+					new InputStreamReader(new FileInputStream(f), "UTF-8"))) {
 				 String line=null;
-//	             List<Environment> env = new LinkedList<Environment>();
+				 reader.readLine();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 5) {
@@ -82,12 +82,32 @@ public class EnvironmentImpl {
 		}
 	}
 	
-	public List<Environment> getEnvList(String dong){
-		List<Environment> tmp = new LinkedList<Environment>();
-		for (int i = 0; i < envInfo.size(); i++) {
-			if(envInfo.get(i).getDong().equals(dong)){
-				
+	private void load4() {
+		File f = new File("res"+File.separator+"서울시 종로구 환경 지도점검 내역 현황.csv");
+		if(f.exists()) {
+			try (BufferedReader reader = new BufferedReader(
+					new InputStreamReader(new FileInputStream(f), "MS949"))) {
+				 String line=null;
+				 reader.readLine();
+	             while((line=reader.readLine()) != null) {
+	            	 String[] info = line.split(",");
+	            	 if(info.length == 13) {
+	            		 envInfo.add(new Environment(info[0], 22, info[12], 11110, ""));
+	            	 }
+	             }
+			} catch (Exception e) {
+				System.out.println(e);
 			}
 		}
+	}
+	
+	public List<Environment> getEnvList(String dong){
+		List<Environment> tmp = new LinkedList<Environment>();
+		for (int i = 0, end = envInfo.size(); i < end; i++) {
+			if(envInfo.get(i).getAddress().contains(dong)){
+				tmp.add(envInfo.get(i));
+			}
+		}
+		return tmp;
 	}
 }
