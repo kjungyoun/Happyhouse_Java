@@ -34,13 +34,14 @@ import com.ssafy.happyhouse.model.service.EnvirionmentServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvironmentService;
 import com.ssafy.happyhouse.model.service.HouseService;
 import com.ssafy.happyhouse.model.service.HouseServiceImpl;
+import com.ssafy.happyhouse.model.service.ImageService;
 
 public class HouseInfoView {
 
 	/** model들 */
 	private HouseService houseService;
 	private EnvironmentService envService;
-
+	private ImageService imageService;
 	/** main 화면 */
 	private JFrame frame;
 
@@ -72,7 +73,7 @@ public class HouseInfoView {
 	private DefaultTableModel envModel;
 	private JTable envTable;
 	private JScrollPane envPane;
-	private String[] envTitle = { "번호", "이름", "주소", "동" };
+	private String[] envTitle = { "이름", "업종코드", "주소", "동번호" };
 
 	/**
 	 * 상권정보 table
@@ -103,6 +104,8 @@ public class HouseInfoView {
 	private void showHouseInfo(int code) {
 
 		curHouse = houseService.search(code);
+		imageService=new ImageService();
+		imageService.setImg(curHouse);
 		System.out.println(curHouse);
 
 		// foodInfoL[0].setText(""+curfood.getCode());
@@ -123,7 +126,7 @@ public class HouseInfoView {
 		houseInfoL[8].setText(curHouse.getDong());
 		houseInfoL[9].setText(curHouse.getJibun());
 
-		System.out.println("###############" + curHouse.getImg());
+		System.out.println("###############" + imageService.getImg());
 
 //		ImageIcon icon = null;
 //		if( curHouse.getImg() != null && curHouse.getImg().trim().length() != 0) {
@@ -134,18 +137,18 @@ public class HouseInfoView {
 //		}
 //
 //		imgL.setIcon(icon);
-
-		Image img = null;
-		try {
-			img = ImageIO.read(new File("img/"+curHouse.getImg()));
-         } catch (IOException ex) {
-        	 try {
-        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
-			} catch (Exception e) {
-			}
-         }
-		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-		imgL.setIcon(new ImageIcon(img));
+		showImg();
+//		Image img = null;
+//		try {
+//			img = ImageIO.read(new File("img/"+imageService.getImg()));
+//         } catch (IOException ex) {
+//        	 try {
+//        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
+//			} catch (Exception e) {
+//			}
+//         }
+//		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+//		imgL.setIcon(new ImageIcon(img));
 	}
 
 	/* 환경 정보를 보여주는 코드 */
@@ -343,7 +346,8 @@ public class HouseInfoView {
 		}
 
 		List<HouseDeal> deals = houseService.searchAll(bean);
-		if (deals != null) {
+		System.out.println("deal: "+deals.size());
+		if (deals != null && deals.size()>0) {
 			int i = 0;
 			String[][] data = new String[deals.size()][5];
 
@@ -356,9 +360,19 @@ public class HouseInfoView {
 
 			}
 			houseModel.setDataVector(data, title);
+			
+			System.out.println("get0" + deals.get(0).getDong());
+			
+			
+			showEnv(deals.get(0).getDong());
+			
+			System.out.println("deal2: "+deals.size());
+			curHouse=deals.get(0);
+			imageService=new ImageService();
+			imageService.setImg(curHouse);
+			showImg();
 		}
-		System.out.println("get0" + deals.get(0).getDong());
-
+	
 	}
 
 	/**
@@ -366,6 +380,7 @@ public class HouseInfoView {
 	 */
 
 	public void showEnv(String dong) {
+		System.out.println("search: "+dong);
 		List<Environment> envs = envService.search(dong);
 
 		if (envs != null) {
@@ -385,6 +400,24 @@ public class HouseInfoView {
 		} else {
 			System.out.println("envs 가 널입니다.");
 		}
+	}
+	
+	
+	/**
+	 * 이미지 보여주기
+	 */
+	public void showImg() {
+		Image img = null;
+		try {
+			img = ImageIO.read(new File("img/"+imageService.getImg()));
+         } catch (IOException ex) {
+        	 try {
+        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
+			} catch (Exception e) {
+			}
+         }
+		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		imgL.setIcon(new ImageIcon(img));
 	}
 //	public static void main(String[] args) {
 //		new HouseInfoView();
