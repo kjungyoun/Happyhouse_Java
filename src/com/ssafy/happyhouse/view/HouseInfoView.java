@@ -358,6 +358,8 @@ public class HouseInfoView {
 			houseModel.setDataVector(data, title);
 		}
 		System.out.println("get0" + deals.get(0).getDong());
+		
+		showEnv(deals.get(0).getDong());
 
 	}
 
@@ -385,6 +387,10 @@ public class HouseInfoView {
 		} else {
 			System.out.println("envs 가 널입니다.");
 		}
+	}
+	
+	public void showShop(String dong) {
+		
 	}
 //	public static void main(String[] args) {
 //		new HouseInfoView();
