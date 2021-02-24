@@ -317,6 +317,7 @@ public class HouseInfoView {
 			} else if (key.equals("name")) {
 				bean.setAptname(word);
 			}
+			
 		}
 
 		List<HouseDeal> deals = houseService.searchAll(bean);
@@ -337,18 +338,16 @@ public class HouseInfoView {
 			
 			System.out.println("get0" + deals.get(0).getDong());
 			
-			
-			showEnv(deals.get(0).getDong());
-			showShop(deals.get(0).getDong());
+			showEnv(deals);
+			showShop(deals);
+
 			System.out.println("deal2: "+deals.size());
 			curHouse=deals.get(0);
 			imageService=new ImageService();
 			imageService.setImg(curHouse);
 			showImg();
-		}else {
-			showEnv();
-			showShop();
 		}
+		
 	
 		
 	}
@@ -357,6 +356,17 @@ public class HouseInfoView {
 	 * 환경정보 리스트 가져오기
 	 */
 
+	public void showEnv(List<HouseDeal> deals) {
+		int size=deals.size();
+		String first=deals.get(0).getDong();
+		String last=deals.get(size-1).getDong();
+		
+		if(first.charAt(0)==last.charAt(0)) {
+			showEnv(first);
+		}else {
+			showEnv();
+		}
+	}
 	public void showEnv(String dong) {
 		System.out.println("search: "+dong);
 		List<Environment> envs = envService.search(dong);
@@ -384,6 +394,9 @@ public class HouseInfoView {
 	/**
 	 * 이미지 보여주기
 	 */
+	
+
+	
 	public void showImg() {
 		Image img = null;
 		try {
@@ -438,6 +451,19 @@ public class HouseInfoView {
 			shopModel.setDataVector(data, shopTitle);
 		} else {
 			System.out.println("shops가 널입니다.");
+		}
+	}
+	
+	
+	public void showShop(List<HouseDeal> deals) {
+		int size=deals.size();
+		String first=deals.get(0).getDong();
+		String last=deals.get(size-1).getDong();
+		
+		if(first.charAt(0)==last.charAt(0)) {
+			showShop(first);
+		}else {
+			showShop();
 		}
 	}
 	
