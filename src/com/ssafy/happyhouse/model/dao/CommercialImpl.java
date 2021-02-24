@@ -26,9 +26,9 @@ public class CommercialImpl {
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 23) {
-	            		 comInfo.add(new Commercial(info[0], info[1], info[3], info[5], info[13], info[15], info[16], info[17]));
+	            		 comInfo.add(new Commercial(info[0], info[1], info[4], info[6], info[14], info[16], info[17].substring(1, info[17].length()-1), info[18].substring(1, info[18].length()-1)));
 	            	 } else if(info.length == 24) {
-	            		 comInfo.add(new Commercial(info[0], info[1], info[4], info[6], info[14], info[16], info[17], info[18]));
+	            		 comInfo.add(new Commercial(info[0], info[1], info[5], info[7], info[15], info[17], info[18].substring(1, info[18].length()-1), info[19].substring(1, info[19].length()-1)));
 	            	 }
 	             }
 			} catch (Exception e) {

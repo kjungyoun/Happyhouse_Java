@@ -168,7 +168,6 @@ public class HouseInfoView {
 		frame.setVisible(true);
 		showHouseInfo(1);
 		// showHouses();
-		new CommercialImpl();
 	}
 
 	/** 메인 화면인 주택 목록을 위한 화면 셋팅하는 메서드 */
