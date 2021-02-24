@@ -25,6 +25,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
+import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
 import com.ssafy.happyhouse.model.service.HouseService;
@@ -72,6 +74,16 @@ public class HouseInfoView{
 	
 	/**화면에 표시하고 있는 주택*/
 	private HouseDeal curHouse;
+	
+	/*
+	 * 주변 환경 정보를 출력하기 위한 셋팅
+	 */
+	private Environment env;
+	private List<Environment> envs;
+	private EnvironmentImpl envImp = new EnvironmentImpl();
+	private DefaultTableModel 	envModel;
+	private String[] envTitle = {"이름","bizcode","주소","동code","동"};
+	
 
 	
 	private void showHouseInfo(int code) {
@@ -126,6 +138,8 @@ public class HouseInfoView{
 //		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 //		imgL.setIcon(new ImageIcon(img));
 	}
+	
+	/* 환경 정보를 보여주는 코드 */
 	
 	public HouseInfoView(){
 		/*Service들 생성 */
@@ -215,7 +229,8 @@ public class HouseInfoView{
 		
 		JPanel bottomRight = new JPanel(new BorderLayout());
 		JPanel btRCenter = new JPanel(new BorderLayout());
-		JTable btRTable = new JTable(new DefaultTableModel(new String[] {"이름","bizcode","주소","동code","동"},20));
+		envModel = new DefaultTableModel(envTitle,20);
+		JTable btRTable = new JTable(envModel);
 		JScrollPane rScroll = new JScrollPane(btRTable);
 		btRTable.setColumnSelectionAllowed(true);
 		btRCenter.add(new JLabel("주변 환경 오염 정보",JLabel.CENTER),"North");
@@ -230,6 +245,7 @@ public class HouseInfoView{
 		btLCenter.add(new JLabel("주변 상가 정보",JLabel.CENTER),"North");
 		btLCenter.add(lScroll,"Center");
 		bottomLeft.add(btLCenter,"Center");
+		/* 환경 오염 정보 추가를 위한 패널 */
 		
 		
 		JPanel mainP = new JPanel(new GridLayout(2, 2));
@@ -251,7 +267,9 @@ public class HouseInfoView{
 				System.out.println("선택된 row : " + row);
 				System.out.println("선택된 row의 column 값 :"+houseModel.getValueAt(row, 0));
 				int code = Integer.parseInt(((String)houseModel.getValueAt(row, 0)).trim());
+				String dong = ((String) houseModel.getValueAt(row, 1)).trim();
 				showHouseInfo(code);
+				envs = envImp.getEnvList(dong);
 			}
 		});
 		
@@ -314,6 +332,22 @@ public class HouseInfoView{
 			}
 			houseModel.setDataVector(data, title);
 		}
+	}
+	
+	public void showEnv() {
+		if(envs!=null) {
+			int i=0;
+			String[][] data = new String[envs.size()][5];
+			for(Environment env : envs) {
+				data[i][0] = env.getName();
+				data[i][1] = ""+env.getBizcode();
+				data[i][2] = env.getAddress();
+				data[i][3] = ""+env.getDongcode();
+				data[i][4] = env.getAddress();
+			}
+			envModel.setDataVector(data,envTitle );
+		}
+		
 	}
 //	public static void main(String[] args) {
 //		new HouseInfoView();
