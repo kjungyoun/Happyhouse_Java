@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -21,7 +23,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.ssafy.happyhouse.HappyHouseException;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
 import com.ssafy.happyhouse.model.service.HouseService;
@@ -130,11 +131,11 @@ public class HouseInfoView{
 		
 		/*메인 화면 설정 */
 		frame = new JFrame("HappyHouse -- 아파트 거래 정보");
-//		frame.addWindowListener(new WindowAdapter() {
-//			public void windowClosing(WindowEvent e){
-//				frame.dispose();
-//			}
-//		});
+		frame.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e){
+				frame.dispose();
+			}
+		});
 		
 		setMain();
 		
@@ -234,8 +235,6 @@ public class HouseInfoView{
 		// complete code #01
 		// 아래의 코드를 참조하여 아래 라인을 uncomment 하고 searchBt.addActionList() 를 Lambda 표현식으로 바꾸세요.
 		searchBt.addActionListener((e)->{searchHouses();} );
-		
-		
 		// 참조코드 시작 - 위 코드를 완성 후 삭제 또는 comment 처리하세요.
 //		ActionListener buttonHandler = new ActionListener() {
 //			@Override

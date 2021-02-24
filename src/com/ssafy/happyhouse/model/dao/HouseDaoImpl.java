@@ -79,7 +79,6 @@ public class HouseDaoImpl implements HouseDao{
 		// complete code #03
 		// List<HouseDeal> search 로부터 no 에 해당하는 HouseDeal 정보를 검색하여 return 하도록 코드를 작성하세요.
 		// 해당하는 no 가 없을 경우 null 을 리턴하세요.
-		
 		for(HouseDeal item: search) {
 			if(item.getNo()==no) {
 				return item;
