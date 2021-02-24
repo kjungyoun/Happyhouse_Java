@@ -1,15 +1,17 @@
 package com.ssafy.happyhouse.view;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -112,17 +114,17 @@ public class HouseInfoView{
 		  
 		  
 
-//		Image img = null;
-//		try {
-//			img = ImageIO.read(new File("img/"+curHouse.getImg()));
-//         } catch (IOException ex) {
-//        	 try {
-//        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
-//			} catch (Exception e) {
-//			}
-//         }
-//		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-//		imgL.setIcon(new ImageIcon(img));
+		Image img = null;
+		try {
+			img = ImageIO.read(new File("img/"+curHouse.getImg()));
+         } catch (IOException ex) {
+        	 try {
+        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
+			} catch (Exception e) {
+			}
+         }
+		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+		imgL.setIcon(new ImageIcon(img));
 	}
 	
 	public HouseInfoView(){
