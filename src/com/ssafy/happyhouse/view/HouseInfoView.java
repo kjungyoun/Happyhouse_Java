@@ -368,7 +368,7 @@ public class HouseInfoView {
 			
 			
 			showEnv(deals.get(0).getDong());
-			
+			showShop(deals.get(0).getDong());
 			System.out.println("deal2: "+deals.size());
 			curHouse=deals.get(0);
 			imageService=new ImageService();
