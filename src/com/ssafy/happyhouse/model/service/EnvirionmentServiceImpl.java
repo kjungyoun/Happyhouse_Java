@@ -18,5 +18,9 @@ public class EnvirionmentServiceImpl implements EnvironmentService{
 		
 		return envDao.getEnvList(dong);
 	}
+	@Override
+	public List<Environment> search() {
+		return envDao.getEnvList();
+	}
 	
 }

@@ -6,4 +6,5 @@ import com.ssafy.happyhouse.model.dto.Environment;
 
 public interface EnvironmentService {
 	public List<Environment> search(String dong);
+	public List<Environment> search();
 }

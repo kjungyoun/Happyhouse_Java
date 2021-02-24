@@ -34,12 +34,14 @@ import com.ssafy.happyhouse.model.service.EnvirionmentServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvironmentService;
 import com.ssafy.happyhouse.model.service.HouseService;
 import com.ssafy.happyhouse.model.service.HouseServiceImpl;
+import com.ssafy.happyhouse.model.service.ShopService;
 
 public class HouseInfoView {
 
 	/** model들 */
 	private HouseService houseService;
 	private EnvironmentService envService;
+	private ShopService shopService;
 
 	/** main 화면 */
 	private JFrame frame;
@@ -93,12 +95,6 @@ public class HouseInfoView {
 	/** 화면에 표시하고 있는 주택 */
 	private HouseDeal curHouse;
 
-	/*
-	 * 주변 환경 정보를 출력하기 위한 셋팅
-	 */
-	private Environment env;
-	private List<Environment> envs;
-	private EnvironmentImpl envImp = new EnvironmentImpl();
 
 	private void showHouseInfo(int code) {
 
@@ -284,6 +280,7 @@ public class HouseInfoView {
 				String dong = ((String) houseModel.getValueAt(row, 1)).trim();
 				showHouseInfo(code);
 				showEnv(dong);
+				showShop(dong);
 			}
 		});
 
@@ -311,6 +308,8 @@ public class HouseInfoView {
 		// 참조코드 종료
 
 		showHouses();
+		showEnv();
+		showShop();
 	}
 
 	/** 검색 조건에 맞는 주택 정보 검색 */
@@ -358,9 +357,8 @@ public class HouseInfoView {
 			houseModel.setDataVector(data, title);
 		}
 		System.out.println("get0" + deals.get(0).getDong());
-		
-		showEnv(deals.get(0).getDong());
 
+		showEnv(deals.get(0).getDong());
 	}
 
 	/**
@@ -389,8 +387,67 @@ public class HouseInfoView {
 		}
 	}
 	
-	public void showShop(String dong) {
+	/*
+	 * 맨처음 실행 시 전체 환경정보를 출력
+	 */
+	public void showEnv() {
+		List<Environment> envs = envService.search();
 		
+		if (envs != null) {
+			int i = 0;
+			String[][] data = new String[envs.size()][5];
+
+			for (Environment env : envs) {
+				data[i][0] = env.getName();
+				data[i][1] = "" + env.getBizcode();
+				data[i][2] = env.getAddress();
+				data[i][3] = "" + env.getDongcode();
+				data[i++][4] = env.getDong();
+
+			}
+
+			envModel.setDataVector(data, envTitle);
+		} else {
+			System.out.println("envs 가 널입니다.");
+		}
+	}
+	
+	public void showShop() {
+		List<Commercial> shops = shopService.search();
+		if(shops != null) {
+			int i=0;
+			String data[][] = new String[shops.size][5];
+			for(Shop s : shops) {
+				data[i][0] = ;
+				data[i][1] = ;
+				data[i][2] = ;
+				data[i][3] = ;
+				data[i++][4] = ;
+			}
+			
+			shopModel.setDataVector(data, shopTitle);
+		} else {
+			System.out.println("shops가 널입니다.");
+		}
+	}
+	
+	public void showShop(String dong) {
+		List<Commercial> shops = shopService.search(dong);
+		if(shops != null) {
+			int i=0;
+			String data[][] = new String[shops.size][5];
+			for(Shop s : shops) {
+				data[i][0] = ;
+				data[i][1] = ;
+				data[i][2] = ;
+				data[i][3] = ;
+				data[i++][4] = ;
+			}
+			
+			shopModel.setDataVector(data, shopTitle);
+		} else {
+			System.out.println("shops가 널입니다.");
+		}
 	}
 //	public static void main(String[] args) {
 //		new HouseInfoView();
