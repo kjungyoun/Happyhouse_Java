@@ -114,17 +114,17 @@ public class HouseInfoView{
 		  
 		  
 
-		Image img = null;
-		try {
-			img = ImageIO.read(new File("img/"+curHouse.getImg()));
-         } catch (IOException ex) {
-        	 try {
-        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
-			} catch (Exception e) {
-			}
-         }
-		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-		imgL.setIcon(new ImageIcon(img));
+//		Image img = null;
+//		try {
+//			img = ImageIO.read(new File("img/"+curHouse.getImg()));
+//         } catch (IOException ex) {
+//        	 try {
+//        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
+//			} catch (Exception e) {
+//			}
+//         }
+//		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+//		imgL.setIcon(new ImageIcon(img));
 	}
 	
 	public HouseInfoView(){
@@ -213,10 +213,31 @@ public class HouseInfoView{
 		right.add(rightTop,"North");
 		right.add(rightCenter,"Center");
 		
-		JPanel mainP = new JPanel(new GridLayout(1, 2));
+		JPanel bottomRight = new JPanel(new BorderLayout());
+		JPanel btRCenter = new JPanel(new BorderLayout());
+		JTable btRTable = new JTable(new DefaultTableModel(new String[] {"이름","bizcode","주소","동code","동"},20));
+		JScrollPane rScroll = new JScrollPane(btRTable);
+		btRTable.setColumnSelectionAllowed(true);
+		btRCenter.add(new JLabel("주변 환경 오염 정보",JLabel.CENTER),"North");
+		btRCenter.add(rScroll,"Center");
+		bottomRight.add(btRCenter,"Center");
+		
+		JPanel bottomLeft = new JPanel(new BorderLayout());
+		JPanel btLCenter = new JPanel(new BorderLayout());
+		JTable btLTable = new JTable(new DefaultTableModel(new String[] {"이름","규모","업종","주소"},20));
+		JScrollPane lScroll = new JScrollPane(btLTable);
+		btRTable.setColumnSelectionAllowed(true);
+		btLCenter.add(new JLabel("주변 상가 정보",JLabel.CENTER),"North");
+		btLCenter.add(lScroll,"Center");
+		bottomLeft.add(btLCenter,"Center");
+		
+		
+		JPanel mainP = new JPanel(new GridLayout(2, 2));
 		
 		mainP.add(left);
 		mainP.add(right);
+		mainP.add(bottomRight);
+		mainP.add(bottomLeft);
 		
 		mainP.setBorder(BorderFactory.createEmptyBorder(20 , 10 , 10 , 10));
 		frame.add(mainP,"Center");
