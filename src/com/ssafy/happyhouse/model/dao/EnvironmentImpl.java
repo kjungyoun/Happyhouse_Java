@@ -81,7 +81,6 @@ public class EnvironmentImpl {
 			}
 		}
 	}
-	
 	private void load4() {
 		File f = new File("res"+File.separator+"서울시 종로구 환경 지도점검 내역 현황.csv");
 		if(f.exists()) {
