@@ -25,6 +25,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
 import com.ssafy.happyhouse.model.service.HouseService;
@@ -145,6 +146,8 @@ public class HouseInfoView{
 		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		imgL.setIcon(new ImageIcon(img));
 	}
+	
+	/* 환경 정보를 보여주는 코드 */
 	
 	public HouseInfoView(){
 		/*Service들 생성 */
@@ -267,6 +270,7 @@ public class HouseInfoView{
 		
 		mainP.add(left);
 		mainP.add(right);
+		mainP.add(bottom);
 		
 		//환경정보 패널을 main패널에 넣음
 		mainP.add(bottomRight);
