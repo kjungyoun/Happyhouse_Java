@@ -96,6 +96,16 @@ public class HouseInfoView{
 	
 	/**화면에 표시하고 있는 주택*/
 	private HouseDeal curHouse;
+	
+	/*
+	 * 주변 환경 정보를 출력하기 위한 셋팅
+	 */
+	private Environment env;
+	private List<Environment> envs;
+	private EnvironmentImpl envImp = new EnvironmentImpl();
+	private DefaultTableModel 	envModel;
+	private String[] envTitle = {"이름","bizcode","주소","동code","동"};
+	
 
 	
 	private void showHouseInfo(int code) {
@@ -138,17 +148,17 @@ public class HouseInfoView{
 		  
 		  
 
-		Image img = null;
-		try {
-			img = ImageIO.read(new File("img/"+curHouse.getImg()));
-         } catch (IOException ex) {
-        	 try {
-        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
-			} catch (Exception e) {
-			}
-         }
-		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-		imgL.setIcon(new ImageIcon(img));
+//		Image img = null;
+//		try {
+//			img = ImageIO.read(new File("img/"+curHouse.getImg()));
+//         } catch (IOException ex) {
+//        	 try {
+//        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
+//			} catch (Exception e) {
+//			}
+//         }
+//		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+//		imgL.setIcon(new ImageIcon(img));
 	}
 	
 	/* 환경 정보를 보여주는 코드 */
@@ -270,13 +280,31 @@ public class HouseInfoView{
 		right.add(rightTop,"North");
 		right.add(rightCenter,"Center");
 		
+		JPanel bottomRight = new JPanel(new BorderLayout());
+		JPanel btRCenter = new JPanel(new BorderLayout());
+		envModel = new DefaultTableModel(envTitle,20);
+		JTable btRTable = new JTable(envModel);
+		JScrollPane rScroll = new JScrollPane(btRTable);
+		btRTable.setColumnSelectionAllowed(true);
+		btRCenter.add(new JLabel("주변 환경 오염 정보",JLabel.CENTER),"North");
+		btRCenter.add(rScroll,"Center");
+		bottomRight.add(btRCenter,"Center");
+		
+		JPanel bottomLeft = new JPanel(new BorderLayout());
+		JPanel btLCenter = new JPanel(new BorderLayout());
+		JTable btLTable = new JTable(new DefaultTableModel(new String[] {"이름","규모","업종","주소"},20));
+		JScrollPane lScroll = new JScrollPane(btLTable);
+		btRTable.setColumnSelectionAllowed(true);
+		btLCenter.add(new JLabel("주변 상가 정보",JLabel.CENTER),"North");
+		btLCenter.add(lScroll,"Center");
+		bottomLeft.add(btLCenter,"Center");
+		/* 환경 오염 정보 추가를 위한 패널 */
+		
+		
 		JPanel mainP = new JPanel(new GridLayout(2, 2));
 		
 		mainP.add(left);
 		mainP.add(right);
-		//mainP.add(bottom);
-		
-		//환경정보 패널을 main패널에 넣음
 		mainP.add(bottomRight);
 		mainP.add(bottomLeft);
 		
@@ -292,7 +320,9 @@ public class HouseInfoView{
 				System.out.println("선택된 row : " + row);
 				System.out.println("선택된 row의 column 값 :"+houseModel.getValueAt(row, 0));
 				int code = Integer.parseInt(((String)houseModel.getValueAt(row, 0)).trim());
+				String dong = ((String) houseModel.getValueAt(row, 1)).trim();
 				showHouseInfo(code);
+				envs = envImp.getEnvList(dong);
 			}
 		});
 		
@@ -398,6 +428,21 @@ public class HouseInfoView{
 	 */
 	
 	
+	public void showEnv() {
+		if(envs!=null) {
+			int i=0;
+			String[][] data = new String[envs.size()][5];
+			for(Environment env : envs) {
+				data[i][0] = env.getName();
+				data[i][1] = ""+env.getBizcode();
+				data[i][2] = env.getAddress();
+				data[i][3] = ""+env.getDongcode();
+				data[i][4] = env.getAddress();
+			}
+			envModel.setDataVector(data,envTitle );
+		}
+		
+	}
 //	public static void main(String[] args) {
 //		new HouseInfoView();
 //	}
