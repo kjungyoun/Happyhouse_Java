@@ -36,6 +36,7 @@ public class APTRentSAXHandler extends DefaultHandler {
 			house.setCode(Integer.parseInt(temp));
 		}else if(qName.equals("아파트")) { 
 			house.setAptName(temp.trim());
+			//house.setImg(temp.trim());
 		}else if(qName.equals("법정동")) { 
 			house.setDong(temp.trim());
 		}else if(qName.equals("보증금액")) { 
