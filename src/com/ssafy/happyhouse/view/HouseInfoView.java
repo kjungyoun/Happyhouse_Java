@@ -422,6 +422,7 @@ public class HouseInfoView {
          }
 		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
 		imgL.setIcon(new ImageIcon(img));
+	}
 	/*
 	 * 맨처음 실행 시 전체 환경정보를 출력
 	 */
