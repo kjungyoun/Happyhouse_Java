@@ -26,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.ssafy.happyhouse.model.dao.CommercialImpl;
 import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
 import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
@@ -169,6 +170,7 @@ public class HouseInfoView {
 		frame.setVisible(true);
 		showHouseInfo(1);
 		// showHouses();
+		new CommercialImpl();
 	}
 
 	/** 메인 화면인 주택 목록을 위한 화면 셋팅하는 메서드 */

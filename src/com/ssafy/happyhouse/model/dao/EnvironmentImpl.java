@@ -30,7 +30,6 @@ public class EnvironmentImpl {
 	             reader.readLine();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
-	            	 System.out.println();
 	            	 if(info.length == 5) {
 	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4])); 
 	            	 } else if(info.length == 4) {
