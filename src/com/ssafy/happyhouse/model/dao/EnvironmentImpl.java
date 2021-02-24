@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.dto.Environment;
+import com.sun.imageio.plugins.common.SubImageInputStream;
 
 public class EnvironmentImpl {
 	private List<Environment> envInfo;
@@ -91,7 +92,7 @@ public class EnvironmentImpl {
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 13) {
-	            		 envInfo.add(new Environment(info[0], 22, info[12], 11110, ""));
+	            		 envInfo.add(new Environment(info[0].substring(1, info[0].length()-1), Integer.parseInt(info[2].substring(1, info[2].length()-1)), info[12].substring(1, info[12].length()-1), 11110, ""));
 	            	 }
 	             }
 			} catch (Exception e) {

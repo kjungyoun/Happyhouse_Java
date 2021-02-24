@@ -358,7 +358,7 @@ public class HouseInfoView {
 			houseModel.setDataVector(data, title);
 		}
 		System.out.println("get0" + deals.get(0).getDong());
-
+		showEnv(deals.get(0).getDong());
 	}
 
 	/**
