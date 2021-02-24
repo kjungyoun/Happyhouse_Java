@@ -78,7 +78,7 @@ public class HouseInfoView {
 	private DefaultTableModel envModel;
 	private JTable envTable;
 	private JScrollPane envPane;
-	private String[] envTitle = { "이름", "업종코드", "주소", "동번호" };
+	private String[] envTitle = { "이름", "처분여부", "점검사항", "주소" };
 
 	/**
 	 * 상권정보 table
@@ -127,27 +127,8 @@ public class HouseInfoView {
 
 		System.out.println("###############" + imageService.getImg());
 
-//		ImageIcon icon = null;
-//		if( curHouse.getImg() != null && curHouse.getImg().trim().length() != 0) {
-//			icon = new ImageIcon("img/" + curHouse.getImg());
-//			System.out.println("#####" + icon.toString() + "####");
-//		}else {
-//			icon = new ImageIcon("img/다세대주택.jpg");
-//		}
-//
-//		imgL.setIcon(icon);
 		showImg();
-//		Image img = null;
-//		try {
-//			img = ImageIO.read(new File("img/"+imageService.getImg()));
-//         } catch (IOException ex) {
-//        	 try {
-//        		 img = ImageIO.read(new File("img/다세대주택.jpg"));
-//			} catch (Exception e) {
-//			}
-//         }
-//		img = img.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
-//		imgL.setIcon(new ImageIcon(img));
+
 	}
 
 	/* 환경 정보를 보여주는 코드 */
@@ -263,7 +244,7 @@ public class HouseInfoView {
 		right.add(rightTop, "North");
 		right.add(rightCenter, "Center");
 
-		/* 환경 오염 정보 추가를 위한 패널 */
+		
 
 		JPanel mainP = new JPanel(new GridLayout(2, 2));
 
@@ -285,34 +266,24 @@ public class HouseInfoView {
 				System.out.println("선택된 row의 column 값 :" + houseModel.getValueAt(row, 0));
 				int code = Integer.parseInt(((String) houseModel.getValueAt(row, 0)).trim());
 				String dong = ((String) houseModel.getValueAt(row, 1)).trim();
+				
 				showHouseInfo(code);
 				showEnv(dong);
 				showShop(dong);
 			}
 		});
 
-		// complete code #01
-		// 아래의 코드를 참조하여 아래 라인을 uncomment 하고 searchBt.addActionList() 를 Lambda 표현식으로
-		// 바꾸세요.
+		//검색버튼 눌렀을 때
 		searchBt.addActionListener((e) -> {
 			searchHouses();
 		});
 
-		// text창에서 enter눌렀을 때 검색
+		// text창에서 enter눌렀을 때
 		wordTf.addActionListener((e) -> {
 			searchHouses();
 		});
 
-		// 참조코드 시작 - 위 코드를 완성 후 삭제 또는 comment 처리하세요.
-//		ActionListener buttonHandler = new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				searchHouses();
-//			}
-//		};
-//		
-//		searchBt.addActionListener( buttonHandler );
-		// 참조코드 종료
+
 
 		showHouses();
 		showEnv();
@@ -374,6 +345,9 @@ public class HouseInfoView {
 			imageService=new ImageService();
 			imageService.setImg(curHouse);
 			showImg();
+		}else {
+			showEnv();
+			showShop();
 		}
 	
 		
