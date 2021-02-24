@@ -29,6 +29,7 @@ import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
 import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
+import com.ssafy.happyhouse.model.service.EnvirionmentServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvironmentService;
 import com.ssafy.happyhouse.model.service.HouseService;
 import com.ssafy.happyhouse.model.service.HouseServiceImpl;
@@ -155,7 +156,7 @@ public class HouseInfoView{
 	public HouseInfoView(){
 		/*Service들 생성 */
 		houseService = new HouseServiceImpl();
-		
+		envService=new EnvirionmentServiceImpl();
 		/*메인 화면 설정 */
 		frame = new JFrame("HappyHouse -- 아파트 거래 정보");
 		frame.addWindowListener(new WindowAdapter() {
@@ -361,7 +362,7 @@ public class HouseInfoView{
 			}
 			houseModel.setDataVector(data, title);
 		}
-		//System.out.println("get0"+ deals.get(0).getDong());
+		System.out.println("get0"+ deals.get(0).getDong());
 		
 		List<Environment> envs=envService.search(deals.get(0).getDong());
 		
@@ -371,6 +372,11 @@ public class HouseInfoView{
 			
 			
 			for (Environment env: envs) {
+				System.out.println("집집집: "+env);
+				
+				
+				
+				
 				data[i][0]= env.getName();
 				data[i][1]= ""+env.getBizcode();
 				data[i][2]= env.getAddress();
@@ -378,7 +384,10 @@ public class HouseInfoView{
 				data[i++][4]= env.getDong();
 				
 			}
+			
 			envModel.setDataVector(data, envTitle);
+		}else {
+			System.out.println("envs 가 널입니다.");
 		}
 		
 	}

@@ -8,8 +8,13 @@ import com.ssafy.happyhouse.model.dto.Environment;
 public class EnvirionmentServiceImpl implements EnvironmentService{
 	
 	private EnvironmentImpl envDao;
+	
+	public EnvirionmentServiceImpl() {
+		envDao=new EnvironmentImpl();
+	}
 	@Override
 	public List<Environment> search(String dong) {
+	
 		
 		return envDao.getEnvList(dong);
 	}
