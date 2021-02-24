@@ -27,22 +27,23 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.ssafy.happyhouse.model.dao.CommercialImpl;
-import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
+import com.ssafy.happyhouse.model.dto.Commercial;
 import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
+import com.ssafy.happyhouse.model.service.CommercialService;
+import com.ssafy.happyhouse.model.service.CommercialServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvirionmentServiceImpl;
 import com.ssafy.happyhouse.model.service.EnvironmentService;
 import com.ssafy.happyhouse.model.service.HouseService;
 import com.ssafy.happyhouse.model.service.HouseServiceImpl;
-import com.ssafy.happyhouse.model.service.ShopService;
 
 public class HouseInfoView {
 
 	/** model들 */
 	private HouseService houseService;
 	private EnvironmentService envService;
-	private ShopService shopService;
+	private CommercialService shopService;
 
 	/** main 화면 */
 	private JFrame frame;
@@ -151,6 +152,7 @@ public class HouseInfoView {
 		/* Service들 생성 */
 		houseService = new HouseServiceImpl();
 		envService = new EnvirionmentServiceImpl();
+		shopService = new CommercialServiceImpl();
 		/* 메인 화면 설정 */
 		frame = new JFrame("HappyHouse -- 아파트 거래 정보");
 		frame.addWindowListener(new WindowAdapter() {
@@ -418,13 +420,13 @@ public class HouseInfoView {
 		List<Commercial> shops = shopService.search();
 		if(shops != null) {
 			int i=0;
-			String data[][] = new String[shops.size][5];
-			for(Shop s : shops) {
-				data[i][0] = ;
-				data[i][1] = ;
-				data[i][2] = ;
-				data[i][3] = ;
-				data[i++][4] = ;
+			String data[][] = new String[shops.size()][5];
+			for(Commercial s : shops) {
+				data[i][0] = s.getNo();
+				data[i][1] = s.getShopname();
+				data[i][2] = s.getCodename1();
+				data[i][3] = s.getCodename2();
+				data[i++][4] = s.getAddress();
 			}
 			
 			shopModel.setDataVector(data, shopTitle);
@@ -437,13 +439,13 @@ public class HouseInfoView {
 		List<Commercial> shops = shopService.search(dong);
 		if(shops != null) {
 			int i=0;
-			String data[][] = new String[shops.size][5];
-			for(Shop s : shops) {
-				data[i][0] = ;
-				data[i][1] = ;
-				data[i][2] = ;
-				data[i][3] = ;
-				data[i++][4] = ;
+			String data[][] = new String[shops.size()][5];
+			for(Commercial s : shops) {
+				data[i][0] = s.getNo();
+				data[i][1] = s.getShopname();
+				data[i][2] = s.getCodename1();
+				data[i][3] = s.getCodename2();
+				data[i++][4] = s.getAddress();
 			}
 			
 			shopModel.setDataVector(data, shopTitle);
