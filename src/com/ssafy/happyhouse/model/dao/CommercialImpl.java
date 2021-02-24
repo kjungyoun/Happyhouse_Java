@@ -43,7 +43,7 @@ public class CommercialImpl {
 	
 	public List<Commercial> getShopList(String dong){
 		List<Commercial> tmp = new LinkedList<Commercial>();
-		for (int i = 0; i < comInfo.size(); i++) {
+		for (int i = 0, end = comInfo.size(); i < end; i++) {
 			if(comInfo.get(i).getDong().contains(dong)) {
 				tmp.add(comInfo.get(i));
 			}

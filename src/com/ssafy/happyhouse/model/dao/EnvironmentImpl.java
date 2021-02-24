@@ -91,7 +91,8 @@ public class EnvironmentImpl {
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 13) {
-	            		 envInfo.add(new Environment(info[0].substring(1, info[0].length()-1), info[12].substring(1, info[12].length()-1), info[8].substring(1, info[8].length()-1), info[9].substring(1, info[9].length()-1), ""));
+	            		 String[] address = info[12].substring(1, info[12].length()-1).split(" ");
+	            		 envInfo.add(new Environment(info[0].substring(1, info[0].length()-1), info[12].substring(1, info[12].length()-1), info[8].substring(1, info[8].length()-1), info[9].substring(1, info[9].length()-1), address[2]));
 	            	 }
 	             }
 			} catch (Exception e) {
@@ -103,7 +104,7 @@ public class EnvironmentImpl {
 	public List<Environment> getEnvList(String dong){
 		List<Environment> tmp = new LinkedList<Environment>();
 		for (int i = 0, end = envInfo.size(); i < end; i++) {
-			if(envInfo.get(i).getAddress().contains(dong)){
+			if(envInfo.get(i).getDong().contains(dong)){
 				tmp.add(envInfo.get(i));
 			}
 		}
