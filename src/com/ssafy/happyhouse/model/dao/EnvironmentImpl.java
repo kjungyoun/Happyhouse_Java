@@ -21,7 +21,7 @@ public class EnvironmentImpl {
 		load4();
 	}
 
-	private void load1() {
+	/*private void load1() {
 		File f = new File("res"+File.separator+"서울시 강남구 환경 지도점검 내역 현황.csv");
 		if(f.exists()) {
 			try (BufferedReader reader = new BufferedReader(
@@ -80,7 +80,7 @@ public class EnvironmentImpl {
 				// TODO: handle exception
 			}
 		}
-	}
+	}*/
 	private void load4() {
 		File f = new File("res"+File.separator+"서울시 종로구 환경 지도점검 내역 현황.csv");
 		if(f.exists()) {
@@ -91,7 +91,7 @@ public class EnvironmentImpl {
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 13) {
-	            		 envInfo.add(new Environment(info[0].substring(1, info[0].length()-1), Integer.parseInt(info[2].substring(1, info[2].length()-1)), info[12].substring(1, info[12].length()-1), 11110, ""));
+	            		 envInfo.add(new Environment(info[0].substring(1, info[0].length()-1), info[12].substring(1, info[12].length()-1), info[8].substring(1, info[8].length()-1), info[9].substring(1, info[9].length()-1), ""));
 	            	 }
 	             }
 			} catch (Exception e) {
