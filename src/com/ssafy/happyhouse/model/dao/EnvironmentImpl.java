@@ -6,14 +6,14 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.ssafy.happyhouse.model.dto.Environment;
 
 public class EnvironmentImpl {
-	private Map<String, List<Environment>> envInfo;
+	private List<Environment> envInfo;
 	
 	public EnvironmentImpl() {
+		envInfo = new LinkedList<Environment>();
 		load1();
 		load2();
 		load3();
@@ -25,21 +25,17 @@ public class EnvironmentImpl {
 			try (BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(f), "UTF-8"))) {
 				 String line=null;
-	             List<Environment> env = new LinkedList<Environment>();
+//	             List<Environment> env = new LinkedList<Environment>();
 	             reader.readLine();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 System.out.println();
 	            	 if(info.length == 5) {
-	            		 env.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4])); 
+	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4])); 
 	            	 } else if(info.length == 4) {
-	            		 env.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), ""));
+	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), ""));
 	            	 }
 	             }
-	             envInfo.put("강남구", env);
-	             for (Environment environment : env) {
-					System.out.println(environment);
-				}
 			} catch (Exception e) {
 				System.out.println(e);
 			}
@@ -51,16 +47,15 @@ public class EnvironmentImpl {
 			try (BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(f), "MS949"))) {
 				 String line=null;
-	             List<Environment> env = new LinkedList<Environment>();
+//	             List<Environment> env = new LinkedList<Environment>();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 5) {
-	            		 env.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4]));
+	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4]));
 	            	 } else if(info.length == 4) {
-	            		 env.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), ""));
+	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), ""));
 	            	 }
 	             }
-	             envInfo.put("강동구", env);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -72,16 +67,15 @@ public class EnvironmentImpl {
 			try (BufferedReader reader = new BufferedReader(
 					new InputStreamReader(new FileInputStream(f), "MS949"))) {
 				 String line=null;
-	             List<Environment> env = new LinkedList<Environment>();
+//	             List<Environment> env = new LinkedList<Environment>();
 	             while((line=reader.readLine()) != null) {
 	            	 String[] info = line.split(",");
 	            	 if(info.length == 5) {
-	            		 env.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4]));
+	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), info[4]));
 	            	 } else if(info.length == 4) {
-	            		 env.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), ""));
+	            		 envInfo.add(new Environment(info[0], Integer.parseInt(info[1]), info[2], Integer.parseInt(info[3]), ""));
 	            	 }
 	             }
-	             envInfo.put("강서구", env);
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -89,6 +83,11 @@ public class EnvironmentImpl {
 	}
 	
 	public List<Environment> getEnvList(String dong){
-		return envInfo.get(dong);
+		List<Environment> tmp = new LinkedList<Environment>();
+		for (int i = 0; i < envInfo.size(); i++) {
+			if(envInfo.get(i).getDong().equals(dong)){
+				
+			}
+		}
 	}
 }
