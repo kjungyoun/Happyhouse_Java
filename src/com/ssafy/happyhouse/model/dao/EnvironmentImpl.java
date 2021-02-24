@@ -109,4 +109,8 @@ public class EnvironmentImpl {
 		}
 		return tmp;
 	}
+	
+	public List<Environment> getEnvList(){
+		return envInfo;
+	}
 }
