@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.ssafy.happyhouse.model.dao.CommercialImpl;
-import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
+import com.ssafy.happyhouse.model.dto.Commercial;
 import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
