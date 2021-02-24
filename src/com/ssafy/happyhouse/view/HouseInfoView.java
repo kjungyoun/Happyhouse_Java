@@ -26,8 +26,10 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.ssafy.happyhouse.model.dao.EnvironmentImpl;
+import com.ssafy.happyhouse.model.dto.Environment;
 import com.ssafy.happyhouse.model.dto.HouseDeal;
 import com.ssafy.happyhouse.model.dto.HousePageBean;
+import com.ssafy.happyhouse.model.service.EnvironmentService;
 import com.ssafy.happyhouse.model.service.HouseService;
 import com.ssafy.happyhouse.model.service.HouseServiceImpl;
 
@@ -36,6 +38,7 @@ public class HouseInfoView{
 	
 	/**model들 */
 	private HouseService 		houseService;
+	private EnvironmentService envService;
 	
 	/** main 화면 */
 	private JFrame frame;
@@ -270,7 +273,7 @@ public class HouseInfoView{
 		
 		mainP.add(left);
 		mainP.add(right);
-		mainP.add(bottom);
+		//mainP.add(bottom);
 		
 		//환경정보 패널을 main패널에 넣음
 		mainP.add(bottomRight);
@@ -346,16 +349,46 @@ public class HouseInfoView{
 		if(deals!=null){
 			int i=0;
 			String[][]data = new String[deals.size()][5];
+			
+			
 			for (HouseDeal deal: deals) {
 				data[i][0]= ""+deal.getNo();
 				data[i][1]= deal.getDong();
 				data[i][2]= deal.getAptName();
 				data[i][3]= deal.getDealAmount();
 				data[i++][4]= deal.getType();
+				
 			}
 			houseModel.setDataVector(data, title);
 		}
+		//System.out.println("get0"+ deals.get(0).getDong());
+		
+		List<Environment> envs=envService.search(deals.get(0).getDong());
+		
+		if(envs!=null) {
+			int i=0;
+			String[][]data = new String[envs.size()][5];
+			
+			
+			for (Environment env: envs) {
+				data[i][0]= env.getName();
+				data[i][1]= ""+env.getBizcode();
+				data[i][2]= env.getAddress();
+				data[i][3]= ""+env.getDongcode();
+				data[i++][4]= env.getDong();
+				
+			}
+			envModel.setDataVector(data, envTitle);
+		}
+		
 	}
+	
+	
+	/**
+	 * 환경정보 리스트 가져오기
+	 */
+	
+	
 //	public static void main(String[] args) {
 //		new HouseInfoView();
 //	}

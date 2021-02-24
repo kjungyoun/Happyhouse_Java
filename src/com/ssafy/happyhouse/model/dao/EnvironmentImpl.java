@@ -86,8 +86,9 @@ public class EnvironmentImpl {
 		List<Environment> tmp = new LinkedList<Environment>();
 		for (int i = 0; i < envInfo.size(); i++) {
 			if(envInfo.get(i).getDong().equals(dong)){
-				
+				tmp.add(envInfo.get(i));
 			}
 		}
+		return tmp;
 	}
 }
