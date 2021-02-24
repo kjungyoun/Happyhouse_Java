@@ -288,6 +288,7 @@ public class HouseInfoView{
 		// 참조코드 종료
 		
 		showHouses();
+		showEnv();
 	}
 	
 	
@@ -343,7 +344,7 @@ public class HouseInfoView{
 				data[i][1] = ""+env.getBizcode();
 				data[i][2] = env.getAddress();
 				data[i][3] = ""+env.getDongcode();
-				data[i][4] = env.getAddress();
+				data[i++][4] = env.getAddress();
 			}
 			envModel.setDataVector(data,envTitle );
 		}
